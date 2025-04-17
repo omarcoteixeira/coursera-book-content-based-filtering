@@ -1,0 +1,5 @@
+pydantic==2.6.4
+requests==2.31.0
+pandas==2.0.3
+pytz==2024.1
+SQLAlchemy==1.4.52
