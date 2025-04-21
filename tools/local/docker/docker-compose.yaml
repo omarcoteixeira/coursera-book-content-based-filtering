@@ -5,8 +5,8 @@ services:
     env_file:
       - .env
     volumes:
-      - ../database/setup:/docker-entrypoint-initdb.d
-      - ../temp/db-data/:/var/lib/postgresql/data
+      - ./database/setup:/docker-entrypoint-initdb.d
+      - ./temp/db-data/:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "airflow"]
       interval: 5s

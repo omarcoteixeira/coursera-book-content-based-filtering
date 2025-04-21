@@ -2,13 +2,13 @@ from datetime import datetime, timedelta
 
 from airflow.decorators import dag
 from airflow.operators.python import PythonOperator
-from airflow.models import Variable
 from airflow.models.baseoperator import chain
+
+from domain.goodreads.models import Book
 
 from domain.goodreads.usecases.book_recommendation_ingestion import BookRecommendationsIngestionUseCase
 from domain.goodreads.database import (
     create_database_session,
-    save_dataframe_to_database,
 )
 
 default_args = {
@@ -20,16 +20,13 @@ default_args = {
 
 def process_kaggle_book_recommendation_dataset(**kwargs):
     database_session = kwargs["database_session"]
-    data = BookRecommendationsIngestionUseCase().execute()
-    # save_dataframe_to_database(
-    #     database_session=database_session, dataframe=data, model=Company
-    # )
+    BookRecommendationsIngestionUseCase(database_session).execute()
 
 
 @dag(
     dag_id="goodreads_etl",
     start_date=datetime(2024, 1, 1),
-    schedule="@daily",
+    schedule="@monthly",
     tags=["goodreads", "kaggle"],
 )
 def goodreads_etl():

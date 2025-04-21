@@ -1,5 +1,8 @@
 venv/
-tools/local/temp
+tools/local/docker/temp
 logs/
 
 **/__pycache__/**
+
+tools/local/docker/.env
+tools/local/docker/requirements.txt
